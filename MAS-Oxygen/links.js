@@ -89,3 +89,7 @@ module.exports = async function login(page)
     await page.goto('https://magentoqa.masholdings.com/style-wise-takt-time');
   }
 
+  module.exports = async function takt(page) {
+    await page.goto('https://magentoqa.masholdings.com/plant-level-walking-time');
+  }
+

@@ -9,14 +9,13 @@ const logins = parse(fs.readFileSync(path.join(__dirname, 'csv/login.csv')), {
 });
 
 
-test(`TC_001`, async ({ page }) => { 
-    await page.goto('https://magentoqa.masholdings.com/login');
-    // const [page1] = await Promise.all([
-   
-    //  ]);
+test(`TC_001 Login to the system`, async ({ page }) => { 
+  await page.goto('https://magentoqa.masholdings.com/login');
+  const [page1] = await Promise.all([
+  page.waitForEvent('popup'),
+  page.getByRole('button', { name: 'Sign in' }).click()
+   ]);
 
-    const page1=await page.waitForEvent('popup')
-    await page.getByRole('button', { name: 'Sign in' }).click() 
     for (const login of logins) {
         await page1.getByPlaceholder('Email, phone, or Skype').click();
         await page1.getByPlaceholder('Email, phone, or Skype').fill(login.email);
@@ -28,9 +27,5 @@ test(`TC_001`, async ({ page }) => {
         await page1.getByLabel('Don\'t show this again').check();
         await page1.getByRole('button', { name: 'Yes' }).click();
     }
-
-    console.log('Test 01: Login to the system');
 });
-
-
 
